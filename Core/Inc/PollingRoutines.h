@@ -6,6 +6,7 @@
 
 
 void PollingRoutine(void); // main entry
+void BlinkkLed(void);
 
 void SendHardwareInfo(void);
 void SendVersionInfo(void);
@@ -16,7 +17,7 @@ void ParseCanRec(void);
 
 void SendUsbMsgToCan(CanTxMsgTypeDef *msg);
 void SendCanToUart(CanTxMsgTypeDef *msg);
-
+void CanBusActivityStatus(uint8_t status);
 void CanSnifferCanInit(CAN_HandleTypeDef *hcan, uint8_t *data);
 
 
