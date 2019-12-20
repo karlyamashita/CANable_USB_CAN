@@ -35,7 +35,7 @@ void PollingRoutine(void){
 	PortB_On(LED_Green_Pin);
 	// polling is currently done in Tasks
 	ParseUsbRec();
-	SendCanTxMessage1();
+	SendCanTxMessage1(&hcan);
 	ParseCanRec();
 	SendUsbMessage();
 
