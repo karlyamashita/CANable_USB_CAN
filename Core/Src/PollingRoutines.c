@@ -22,7 +22,7 @@ uint8_t canBusActive = 0;
 
 const char* Version = "v1.0.1";
 const char* Hardware = "CANable_0.2";
-const char* Frequency = "48mHz";// this is the APB1 clock frequency
+const char* Frequency = "APB1_48mHz";// this is the APB1 clock frequency
 
 uint8_t ledBlinkMode = 0;
 uint32_t currentHalCount = 0;
@@ -124,7 +124,7 @@ void SendFrequency(void) {
 	uint8_t data[USBD_CUSTOMHID_OUTREPORT_BUF_SIZE] = {0};
 	uint8_t i = 0;
 	data[0] = COMMAND_FREQUENCY;
-	while( Version[i] != '\0') {
+	while( Frequency[i] != '\0') {
 		data[i + 1] = (uint8_t) Frequency[i];
 		i++;
 	}
