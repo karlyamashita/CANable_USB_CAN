@@ -22,4 +22,5 @@
 #define COMMAND_CAN_BTR 0x91 // the CAN BTC value
 #define COMMAND_VERSION 0x92 // send back version to PC
 #define COMMAND_HARDWARE 0x93 // send back hardware type to PC
+#define COMMAND_FREQUENCY 0x94 // send back the APB1 clock frequency to PC
 

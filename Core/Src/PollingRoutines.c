@@ -6,7 +6,7 @@
 #include "CAN_Buffer.h"
 #include "protocolCommands.h"
 #include "USB_Buffer.h"
-#include "ConvertUsbAndCan.h"
+#include "UsbAndCanConvert.h"
 #include "GPIO_Ports.h"
 
 //#include "IntArrayToString.h"
@@ -22,7 +22,7 @@ uint8_t canBusActive = 0;
 
 const char* Version = "v1.0.1";
 const char* Hardware = "CANable_0.2";
-
+const char* Frequency = "48mHz";// this is the APB1 clock frequency
 
 uint8_t ledBlinkMode = 0;
 uint32_t currentHalCount = 0;
@@ -91,6 +91,7 @@ void ParseUsbRec(void) {
 		case COMMAND_INFO:
 			SendHardwareInfo();
 			SendVersionInfo();
+			SendFrequency();
 			Send_CAN_BTR(&hcan);
 			break;
 		}
@@ -114,6 +115,17 @@ void SendVersionInfo(void) {
 	data[0] = COMMAND_VERSION;
 	while( Version[i] != '\0') {
 		data[i + 1] = (uint8_t) Version[i];
+		i++;
+	}
+	AddUsbTxBuffer(data);
+}
+
+void SendFrequency(void) {
+	uint8_t data[USBD_CUSTOMHID_OUTREPORT_BUF_SIZE] = {0};
+	uint8_t i = 0;
+	data[0] = COMMAND_FREQUENCY;
+	while( Version[i] != '\0') {
+		data[i + 1] = (uint8_t) Frequency[i];
 		i++;
 	}
 	AddUsbTxBuffer(data);
@@ -147,9 +159,9 @@ void ParseCanRec(void) {
 	canMsgAvailableFlag = Can1DataAvailable(&canRxMsg); // check ring buffer for new message
 	if(canMsgAvailableFlag) {
 		if(canRxMsg.CAN_RxHeaderTypeDef.IDE == CAN_EXT_ID) { // EXT ID
-			SendCanDataToUsb(&canRxMsg);
+			SendCanDataToUsb(&canRxMsg, CAN1_NODE);
 		} else { // STD ID
-			SendCanDataToUsb(&canRxMsg);
+			SendCanDataToUsb(&canRxMsg, CAN1_NODE);
 		}
 	}
 }

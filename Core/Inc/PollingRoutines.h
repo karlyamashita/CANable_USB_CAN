@@ -10,6 +10,7 @@ void BlinkkLed(void);
 
 void SendHardwareInfo(void);
 void SendVersionInfo(void);
+void SendFrequency(void);
 void Send_CAN_BTR(CAN_HandleTypeDef *hcan);
 
 void ParseUsbRec(void);
