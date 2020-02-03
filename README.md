@@ -1,4 +1,4 @@
-# USB_to_CAN
+# CANable USB CAN
 USB to CAN bus interface source code for use with Protofusion.org CANable interface.
 Check the wiki for more info https://github.com/karlyamashita/CANable_USB_CAN/wiki
 
